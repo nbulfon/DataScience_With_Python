@@ -1,0 +1,1 @@
+Grados de libertad = (nro_filas - 1) * (nro_columnas -1) 

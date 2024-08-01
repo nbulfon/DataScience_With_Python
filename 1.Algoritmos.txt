@@ -1,0 +1,11 @@
+Existen Algoritmos supervisados y no supervisados.
+
+Son A.Supervisados, cuando necesito datos historicos para predecir en mi modelo. ej: regresion lineal, logistica, etc. ej: predecir coportamiento de acciones Apple.
+
+Son A. No supervisados, cuando no necesito datos historicos para predecir en mi modelo. Ej: Clustering, arboles de decision. Ej: Segmentacion de usuarios en base a lo que elijan.
+---------
+
+Dividir datos en dos conjuntos:
+
+Datos de entrenamiento.
+Datos de validacion.
