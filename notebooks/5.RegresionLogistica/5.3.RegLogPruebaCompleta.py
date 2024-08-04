@@ -119,7 +119,7 @@ bank_data.columns.values
 
 # Como la variable a predecir es la Y, voy a separar el dataset en dos.
 bank_data_vars = bank_data.columns.values.tolist()
-Y = ['Y']
+Y = ['y']
 # las X son todas las que no estén en Y.
 X = [v for v in bank_data_vars if v not in Y]
 
@@ -133,13 +133,114 @@ rfe = rfe.fit(bank_data[X], bank_data[Y].values.ravel())
 
 print(rfe.support_)
 
+print(rfe.ranking_)
+
+z=zip(bank_data_vars,rfe.support_, rfe.ranking_)
+
+list(z)
+
+
+# creo mi array de columnas definitivas ->
+cols = ["previous", "euribor3m", "job_blue-collar", "job_retired", "month_aug", "month_dec", 
+        "month_jul", "month_jun", "month_mar", "month_nov", "day_of_week_wed", "poutcome_nonexistent"]
+X = bank_data[cols]
+Y = bank_data["y"]
+
 ## FIN SELECCION DE RASGOS DEL MODELO
-
-
 # FIN DATA WRANGLING
 
 
+# Implementacion del modelo en Python con statsmodel.api
+import statsmodels.api as sm
 
+logit_model = sm.Logit(Y, X)
+
+result = logit_model.fit()
+
+result.summary()
+
+
+# Implementación del modelo en Python con scikit-learn
+
+from sklearn import linear_model
+
+logit_model = linear_model.LogisticRegression()
+logit_model.fit(X,Y)
+
+logit_model.score(X,Y)
+
+1-Y.mean()  
+
+_pandas.DataFrame(list(zip(X.columns, _numpy.transpose(logit_model.coef_))))
+
+# Validación del modelo logístico
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y, test_size = 0.3, random_state=0)
+
+lm = linear_model.LogisticRegression()
+lm.fit(X_train, Y_train)
+
+
+
+from IPython.display import display, Math, Latex
+
+display(Math(r'Y_p=\begin{cases}0& si\ p\leq0.5\\1&si\ p >0.5\end{cases}'))
+
+probs = lm.predict_proba(X_test)
+
+probs
+
+prediction = lm.predict(X_test)
+
+prediction
+
+  
+prob = probs[:,1]
+prob_df = _pandas.DataFrame(prob)
+threshold = 0.1
+prob_df["prediction"] = _numpy.where(prob_df[0]>threshold, 1, 0)
+prob_df.head()
+
+
+_pandas.crosstab(prob_df.prediction, columns="count")
+
+390/len(prob_df)*100
+
+threshold = 0.15
+prob_df["prediction"] = _numpy.where(prob_df[0]>threshold, 1, 0)
+_pandas.crosstab(prob_df.prediction, columns="count")
+
+
+331/len(prob_df)*100
+
+
+threshold = 0.05
+prob_df["prediction"] = _numpy.where(prob_df[0]>threshold, 1, 0)
+_pandas.crosstab(prob_df.prediction, columns="count")
+
+
+from sklearn import metrics
+
+metrics.accuracy_score(Y_test, prediction)
+
+
+# Validación cruzada
+# la validacion cruzada se requiere en muchos casos para que en el modelo no haya problemas
+# de OverFitting (anda perfecto para un conjunto de entrenamiento, y mal para el de prueba).
+
+from sklearn.model_selection import cross_val_score
+
+scores = cross_val_score(linear_model.LogisticRegression(), X, Y, scoring="accuracy", cv=10)
+
+scores
+
+scores.mean()
+
+# Matrices de Confusión y curvas ROC
+# ROC (Caracteristicas Operativas del Receptor)
+
+# FIN Matrices de Confusión y curvas ROC
 
 
 
