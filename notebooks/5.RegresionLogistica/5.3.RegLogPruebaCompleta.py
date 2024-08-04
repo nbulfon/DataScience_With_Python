@@ -240,6 +240,83 @@ scores.mean()
 # Matrices de Confusión y curvas ROC
 # ROC (Caracteristicas Operativas del Receptor)
 
+X_train, X_test, Y_train, Y_test = train_test_split(X,Y,test_size=0.3, random_state=0)
+
+lm = linear_model.LogisticRegression()
+lm.fit(X_train, Y_train)
+
+probs = lm.predict_proba(X_test)
+
+prob=probs[:,1]
+prob_df = _pandas.DataFrame(prob)
+threshold = 0.1 # esto es el nivel de sensibilidad elegido.
+prob_df["prediction"] = _numpy.where(prob_df[0]>=threshold, 1, 0)
+prob_df["actual"] = list(Y_test)
+prob_df.head()
+
+confusion_matrix = pd.crosstab(prob_df.prediction, prob_df.actual)
+
+TN=confusion_matrix[0][0]
+TP=confusion_matrix[1][1]
+FN=confusion_matrix[0][1]
+FP=confusion_matrix[1][0]
+
+sens = TP/(TP+FN)
+sens
+
+espc_1 = 1-TN/(TN+FP)
+espc_1
+
+thresholds = [0.04, 0.05, 0.07, 0.10, 0.12, 0.15, 0.18, 0.20, 0.25, 0.3, 0.4, 0.5]
+sensitivities = [1]
+especifities_1 = [1]
+
+for t in thresholds:
+    prob_df["prediction"] = _numpy.where(prob_df[0]>=t, 1, 0)
+    prob_df["actual"] = list(Y_test)
+    prob_df.head()
+
+    confusion_matrix = _pandas.crosstab(prob_df.prediction, prob_df.actual)
+    TN=confusion_matrix[0][0]
+    TP=confusion_matrix[1][1]
+    FP=confusion_matrix[0][1]
+    FN=confusion_matrix[1][0]
+    
+    sens = TP/(TP+FN)
+    sensitivities.append(sens)
+    espc_1 = 1-TN/(TN+FP)
+    especifities_1.append(espc_1)
+
+sensitivities.append(0)
+especifities_1.append(0)
+
+import matplotlib.pyplot as plt
+
+#%matplotlib inline
+plt.plot(especifities_1, sensitivities, marker="o", linestyle="--", color="r")
+x=[i*0.01 for i in range(100)]
+y=[i*0.01 for i in range(100)]
+plt.plot(x,y)
+plt.xlabel("1-Especifidad")
+plt.ylabel("Sensibilidad")
+plt.title("Curva ROC")
+
+#HAY QUE ESPERAR QUE ACTUALICE GGPLOT LAS LIBRERIAS, SINO HAY QUE MODIFICAR ARCHIVOS INTERNOS
+
+from sklearn import metrics
+from pandas import Timestamp
+from ggplot import *
+espc_1, sensit, _ = metrics.roc_curve(Y_test, prob)
+
+df = pd.DataFrame({
+    "esp":espc_1,
+    "sens":sensit
+})
+
+#ggplot(df, aes(x="esp", y="sens")) +geom_line() + geom_abline(linetype="dashed")+xlim(-0.01,1.01)+ylim(-0.01,1.01)+xlab("1-Especifid
+auc = metrics.auc(espc_1, sensit)
+auc
+ggplot(df, aes(x="esp", y="sens")) + geom_area(alpha=0.25)+geom_line(aes(y="sens"))+ggtitle("Curva ROC y AUC=%s"%str(auc))
 # FIN Matrices de Confusión y curvas ROC
 
 
