@@ -178,7 +178,62 @@ Z
 
 ## FIN Enlaces
 
+## Clustering Jerarquico
+import matplotlib.pyplot as _plt
+from  scipy.cluster.hierarchy import dendrogram, linkage
 
+Z = linkage(data[movies],"ward")
+Z
+    
+_plt.figure(figsize=(25,10))
+_plt.title("Dendrogrma jerárquico para el Clustering")
+_plt.xlabel("ID de los usuarios de Netflix")
+_plt.ylabel("Distancia")
+dendrogram(Z, leaf_rotation=90.,leaf_font_size=10.0)
+_plt.show()
+
+Z = linkage(data[movies],"average")
+Z
+    
+_plt.figure(figsize=(25,10))
+_plt.title("Dendrogrma jerárquico para el Clustering")
+_plt.xlabel("ID de los usuarios de Netflix")
+_plt.ylabel("Distancia")
+dendrogram(Z, leaf_rotation=90.,leaf_font_size=10.0)
+_plt.show()
+
+Z = linkage(data[movies],"complete")
+Z
+    
+_plt.figure(figsize=(25,10))
+_plt.title("Dendrogrma jerárquico para el Clustering")
+_plt.xlabel("ID de los usuarios de Netflix")
+_plt.ylabel("Distancia")
+dendrogram(Z, leaf_rotation=90.,leaf_font_size=10.0)
+_plt.show()
+
+
+Z = linkage(data[movies],"single")
+Z
+    
+_plt.figure(figsize=(25,10))
+_plt.title("Dendrogrma jerárquico para el Clustering")
+_plt.xlabel("ID de los usuarios de Netflix")
+_plt.ylabel("Distancia")
+dendrogram(Z, leaf_rotation=90.,leaf_font_size=10.0)
+_plt.show()
+
+
+Z = linkage(data[movies],"weighted")
+Z
+    
+_plt.figure(figsize=(25,10))
+_plt.title("Dendrogrma jerárquico para el Clustering")
+_plt.xlabel("ID de los usuarios de Netflix")
+_plt.ylabel("Distancia")
+dendrogram(Z, leaf_rotation=90.,leaf_font_size=10.0)
+_plt.show()
+## FIN Clustering Jerarquico
 
 
 
