@@ -254,7 +254,7 @@ prob_df["prediction"] = _numpy.where(prob_df[0]>=threshold, 1, 0)
 prob_df["actual"] = list(Y_test)
 prob_df.head()
 
-confusion_matrix = pd.crosstab(prob_df.prediction, prob_df.actual)
+confusion_matrix = _pandas.crosstab(prob_df.prediction, prob_df.actual)
 
 TN=confusion_matrix[0][0]
 TP=confusion_matrix[1][1]
