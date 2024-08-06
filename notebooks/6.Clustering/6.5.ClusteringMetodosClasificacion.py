@@ -44,7 +44,7 @@ for k in K:
     # Por seguridad, no hacemos silueta si k = 1 o si k = len(X)
     if 1 < k < len(X):
         # Crear un subplot de una fila y dos columnas
-        fig, (axis1,axis2) = _plt.subplot(1,2)
+        fig, (axis1,axis2) = _plt.subplots(1,2)
         fig.set_size_inches(20,8)
         # El primer subplot contendrá la silueta, que puede contener valores de [-1,1]
         # En nuestro caso, ya controlamos que los valores estén dentro de ese rango.
@@ -55,14 +55,14 @@ for k in K:
         axis1.set_ylim([0, len(X)+ (k+1)*10])
         
         silhouette_avg = silhouette_score(X, labels)
-        print("* Para k ="+k+ "El promedio de la silueta es de:"+silhouette_avg)
+        #print("* Para k ="+k+ "El promedio de la silueta es de:"+silhouette_avg)
         sample_silhouette_values = silhouette_samples(X, labels)
         
         y_lower = 10
         for i in range(k):
             # Agregamos la silueta del cluster k-ésimo
             ith_cluster_sv = sample_silhouette_values[labels == i]
-            print("   - Para i =",i+1,"la silueta del cluster vale : ",_numpy.mean(ith_cluster_sv))
+           # print("   - Para i =",i+1,"la silueta del cluster vale : ",_numpy.mean(ith_cluster_sv))
             # ordenamos descendientemente las siluetas del cluster i-ésimo
             ith_cluster_sv.sort()
             
@@ -88,18 +88,29 @@ for k in K:
         
         # Fin de la representación de la silueta
         
-    # Plot de los k-means con los puntos respectivos
+    ##Plot de los k-means con los puntos respectivos
     _plt.plot()
     _plt.xlim([0,10])
     _plt.ylim([0,10])
-    _plt.title("Clustering para k ="+str(k))
-    _plt.scatter(x1, x2, c=label_color)
-    _plt.scatter(centers[0], centers[1], c = color_palette, marker="x")
+    _plt.title("Clustering para k = %s"%str(k))
+    _plt.scatter(x1,x2, c=label_color)
+    _plt.scatter(centers[0], centers[1], marker = "x")
     _plt.show()
     
     
-    
-    
+#Representación del codo
+_plt.plot(K, ssw, "bx-")
+_plt.xlabel("k")
+_plt.ylabel("SSw(k)")
+_plt.title("La técnica del codo para encontrar el k óptimo")
+_plt.show()
+
+#Representación del codo normalizado
+_plt.plot(K, 1-ssw/sst, "bx-")
+_plt.xlabel("k")
+_plt.ylabel("1-norm(SSw(k))")
+_plt.title("La técnica del codo normalizado para encontrar el k óptimo")
+_plt.show()
     
 
 
