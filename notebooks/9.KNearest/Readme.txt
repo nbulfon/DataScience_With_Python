@@ -1,0 +1,1 @@
+La ténica de los K-Vecinos, es un algoritmo de clasificación por consenso. Agrupa datos en relación a cercanía.
