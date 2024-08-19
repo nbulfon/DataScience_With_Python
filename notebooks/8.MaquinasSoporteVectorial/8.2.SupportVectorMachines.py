@@ -22,7 +22,11 @@ _plt.xlim(-1,3.5)
 
 
 
-#Maximización del margen
+#Maximización del margen (del 'corredor'). L maximización de margén, es una técnica utilizada
+# para elegir el modelo óptimo de entre todos los que están disponibles.
+# (en lugar de separar con lineas rectas(algo difuso para clasificar),
+# separo con corredores, margenes,pasillos).
+
 
 xx = _numpy.linspace(-1, 3.5)
 _plt.scatter(X[:,0], X[:,1], c = Y, s = 50, cmap="autumn")
@@ -31,6 +35,7 @@ _plt.plot([0.5], [2.1], 'x', color="blue", markeredgewidth=2, markersize=10)
 for a, b, d in [(1,0.65, 0.33), (0.5, 1.6,0.55), (-0.2, 2.9, 0.2)]:
     yy = a * xx + b
     _plt.plot(xx, yy, "-k")
+    # defino, entre otras cosas, la 'proyección ortogonal'.
     _plt.fill_between(xx, yy-d, yy+d, edgecolor='none', color="#BBBBBB", alpha = 0.4)
     
 _plt.xlim(-1,3.5)
