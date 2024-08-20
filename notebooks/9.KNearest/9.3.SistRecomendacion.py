@@ -79,7 +79,6 @@ from sklearn.metrics import mean_squared_error
 def get_mse(preds, actuals):
     if preds.shape[0] != actuals.shape[0]:
         actuals = actuals.T
-        
     preds = preds[actuals.nonzero()].flatten()
     actuals = actuals[actuals.nonzero()].flatten()
     return mean_squared_error(preds, actuals)
@@ -188,30 +187,5 @@ get_mse(preds, ratings_train)
 get_mse(preds, ratings_test)
 
 # FIN Filtro colaborativo basado en los KNN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
