@@ -12,3 +12,7 @@ Componentes principales: conjunto dado por el conjunto original de variables tra
 "Cuanto mayor sea la variabilidad de los datos, se considera que existe más información entre las variables".
 
 Soluciones --> Pearson,Hoteling.
+
+
+----------------------------
+El objetivo es identificar variables que estén correlacionadas, para ir juntandolas o eliminandolas si son redundants, para ir quitando dimensión (si tiene sentido, ej. en presencia de cuellos de botella) para reducir el costo computacional.

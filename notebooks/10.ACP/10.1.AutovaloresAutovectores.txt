@@ -1,0 +1,9 @@
+Un autovalor y un autovector son conceptos fundamentales en álgebra lineal relacionados con matrices y transformaciones lineales:
+
+    Autovector (Eigenvector): Es un vector que, cuando se le aplica una transformación lineal (representada por una matriz), no cambia de dirección, aunque puede cambiar de magnitud. Matemáticamente, para una matriz AA y un vector vv, vv es un autovector si cumple:
+    Av=λv
+    Av=λv
+
+    donde λλ es un escalar.
+
+    Autovalor (Eigenvalue): Es el escalar λλ asociado a un autovector vv. Indica cuánto se escala el autovector cuando se le aplica la transformación lineal. En la ecuación anterior, λλ es el autovalor correspondiente al autovector vv.

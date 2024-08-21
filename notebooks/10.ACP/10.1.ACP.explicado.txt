@@ -1,0 +1,77 @@
+Lo que se está haciendo en el código que proporcionaste es un análisis matemático y estadístico de una matriz de datos utilizando varias técnicas relacionadas con el álgebra lineal y la estadística. Estas técnicas son fundamentales para la reducción de dimensionalidad, el análisis de componentes principales (PCA) y otros métodos en el campo de Machine Learning y finanzas.
+
+Voy a desglosar cada sección y explicar lo que se está haciendo:
+1. Matriz de Covarianzas
+Concepto:
+
+    Covarianza: La covarianza mide cómo dos variables cambian juntas. Si los valores de las dos variables tienden a aumentar o disminuir simultáneamente, la covarianza es positiva. Si una variable aumenta mientras que la otra disminuye, la covarianza es negativa.
+
+    Matriz de Covarianzas: Es una matriz cuadrada que contiene las covarianzas entre cada par de variables en el conjunto de datos.
+
+Cálculo:
+
+    Media de las Variables:
+    xj‾=1n∑i=1nxij
+    xj​​=n1​i=1∑n​xij​
+
+    Aquí se calcula la media de cada variable xjxj​ en el conjunto de datos.
+
+    Matriz de Covarianzas:
+    Σ=1n−1(X−x‾)T(X−x‾)
+    Σ=n−11​(X−x)T(X−x)
+
+    Esta fórmula toma la diferencia de cada variable con su media (centrado de datos), multiplica estas diferencias entre sí, y luego promedia sobre todas las muestras para calcular la matriz de covarianzas.
+
+    Descomposición de Valores y Vectores Propios:
+
+        Autovalores y Autovectores: Se calculan los autovalores y autovectores de la matriz de covarianzas. Esto es fundamental en el análisis de componentes principales (PCA), donde los autovalores indican la varianza explicada por cada componente, y los autovectores dan la dirección de estos componentes.
+
+        Matemáticamente: Si ΣΣ es la matriz de covarianzas, se resuelve la ecuación:
+        Σv=λv
+        Σv=λv
+
+        Donde vv es un autovector y λλ es un autovalor correspondiente.
+
+2. Matriz de Correlaciones
+Concepto:
+
+    Correlación: Mide la relación lineal entre dos variables. Es una versión normalizada de la covarianza que toma valores entre -1 y 1.
+
+    Matriz de Correlaciones: Similar a la matriz de covarianzas, pero sus elementos están normalizados de manera que las variables en la diagonal principal tengan una correlación de 1 consigo mismas.
+
+Cálculo:
+
+    Matriz de Correlaciones:
+    corr_matrix=(X−x‾)T(X−x‾)std(Xi)std(Xj)
+    corr_matrix=std(Xi​)std(Xj​)(X−x)T(X−x)​
+
+    La matriz de correlaciones normaliza las covarianzas, lo que es útil en finanzas y otras áreas donde las unidades de medida pueden diferir entre variables.
+
+    Descomposición de Valores y Vectores Propios:
+        Al igual que con la matriz de covarianzas, se calculan los autovalores y autovectores de la matriz de correlaciones.
+
+3. Descomposición en Valores Singulares (SVD)
+Concepto:
+
+    SVD (Singular Value Decomposition): Es una técnica que descompone una matriz en tres componentes: una matriz de autovectores izquierdos, una matriz diagonal de valores singulares, y una matriz de autovectores derechos. Es una herramienta poderosa en Machine Learning por su estabilidad y eficiencia computacional.
+
+Cálculo:
+
+    SVD:
+    X=UΣVT
+    X=UΣVT
+
+    Donde:
+        UU contiene los autovectores izquierdos.
+        ΣΣ es una matriz diagonal con los valores singulares.
+        VTVT contiene los autovectores derechos.
+
+    SVD es ampliamente utilizado en técnicas de reducción de dimensionalidad y compresión de datos, como en PCA y análisis de datos grandes.
+
+Resumen:
+
+    Matriz de Covarianzas: Calcula la covarianza entre variables y descompone esta matriz para encontrar los componentes principales.
+    Matriz de Correlaciones: Normaliza la covarianza y realiza un análisis similar, útil cuando las variables tienen diferentes escalas.
+    SVD: Descompone la matriz de datos directamente, ofreciendo una herramienta robusta para análisis y reducción de dimensionalidad.
+
+Cada una de estas técnicas proporciona una manera de entender y simplificar los datos, encontrando patrones y relaciones subyacentes, que son esenciales en el análisis de datos y Machine Learning.
