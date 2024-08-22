@@ -1,0 +1,45 @@
+¿Qué es la Regresión Softmax?
+
+La Regresión Softmax es una extensión de la Regresión Logística que se utiliza en problemas de clasificación multiclase. Mientras que la regresión logística se utiliza para clasificar entre dos clases (binaria), la regresión softmax permite clasificar un dato entre tres o más clases mutuamente excluyentes.
+Funcionamiento de la Regresión Softmax
+
+La regresión softmax asigna probabilidades a cada clase posible. Para un conjunto de clases C={1,2,…,K}C={1,2,…,K}, el objetivo de la regresión softmax es, dado un vector de características xx, predecir la probabilidad de que xx pertenezca a cada clase k∈Ck∈C.
+Fórmula de la Regresión Softmax
+
+Para una entrada xx, el modelo predice la probabilidad de que xx pertenezca a la clase kk usando la siguiente fórmula:
+P(y=k∣x)=eθkTx∑j=1KeθjTx
+P(y=k∣x)=∑j=1K​eθjT​xeθkT​x​
+
+Donde:
+
+    P(y=k∣x)P(y=k∣x) es la probabilidad de que la entrada xx pertenezca a la clase kk.
+    θkθk​ es el vector de pesos para la clase kk.
+    eθkTxeθkT​x es la función exponencial aplicada al producto punto entre los pesos θkθk​ y el vector de características xx.
+    KK es el número total de clases.
+
+Interpretación
+
+    Probabilidades: La salida de la regresión softmax para una instancia dada es un vector de probabilidades, una para cada clase. Estas probabilidades suman 1, lo que significa que el modelo asigna una probabilidad a cada clase posible.
+
+    Clasificación: Para clasificar una nueva instancia, el modelo selecciona la clase con la probabilidad más alta.
+
+Ejemplo:
+
+Supongamos que estamos entrenando un modelo para clasificar imágenes de dígitos escritos a mano (0-9). Dado un conjunto de imágenes, queremos predecir cuál es el dígito representado. Si xx es la imagen de entrada, la regresión softmax calculará las probabilidades de que xx sea cada uno de los dígitos del 0 al 9. La clase con la mayor probabilidad será la predicción del modelo.
+Proceso de Clasificación
+
+    Cálculo de las Potenciales (Logits):
+        El modelo calcula un valor θkTxθkT​x para cada clase kk. Estos valores son los "logits" y pueden ser cualquier número real, positivo o negativo.
+
+    Aplicación de la Función Softmax:
+        Se aplica la función softmax a los logits, transformándolos en probabilidades. La función softmax toma los exponentes de los logits, normaliza estos valores dividiéndolos por la suma de todos los exponentes, y produce un vector de probabilidades.
+
+    Predicción Final:
+        El modelo selecciona la clase con la mayor probabilidad como la predicción final.
+
+Uso Común en Redes Neuronales
+
+La regresión softmax es frecuentemente utilizada como la capa de salida en redes neuronales que se entrenan para tareas de clasificación multiclase. Por ejemplo, en una red neuronal que clasifica imágenes en varias categorías (como en el dataset MNIST), la última capa de la red suele ser una capa densa con tantas neuronas como clases, seguida de la función softmax.
+Función de Pérdida
+
+La función de pérdida comúnmente utilizada con la regresión softmax es la entropía cruzada categórica (categorical_crossentropy), que mide la diferencia entre la distribución de probabilidades predicha por el modelo y la distribución real (que es 1 para la clase correcta y 0 para las demás).
