@@ -47,6 +47,7 @@ ro.r("hist(var_to_r, breaks = 4)")
 
 from rpy2.robjects.packages import importr
 
+# forma de instalar paquetes de R en Python ->
 ro.r("install.packages('extRemes')")# si os falla decidle 'n' al hacer la instalación
 
 extremes = importr("extRemes") # library(extRemes)
