@@ -1,0 +1,53 @@
+Regularización en Softmax: ¿Cómo Funciona?
+
+La regularización es una técnica utilizada para evitar el sobreajuste (overfitting) en los modelos de aprendizaje automático, incluyendo la regresión softmax. El sobreajuste ocurre cuando un modelo se ajusta demasiado a los datos de entrenamiento, capturando tanto las señales reales como el ruido, lo que conduce a un rendimiento deficiente en los datos no vistos (de prueba). La regularización ayuda a mitigar este problema penalizando la complejidad del modelo.
+Tipos Comunes de Regularización en Softmax
+
+    Regularización L2 (Ridge Regularization):
+        La regularización L2 penaliza la suma de los cuadrados de los pesos del modelo. Es la forma más común de regularización utilizada con la regresión softmax.
+        En la práctica, esto significa que el modelo es incentivado a mantener los pesos pequeños. Cuanto más pequeños sean los pesos, menos probable es que el modelo se sobreajuste a los datos de entrenamiento.
+
+    Regularización L1 (Lasso Regularization):
+        La regularización L1 penaliza la suma de los valores absolutos de los pesos. Esto puede llevar a soluciones más esparsas, donde algunos pesos se reducen a cero, eliminando efectivamente ciertas características del modelo.
+        Esto es útil cuando se desea un modelo más simple que utilice solo un subconjunto de las características disponibles.
+
+    Regularización Combinada L1/L2 (Elastic Net):
+        Combina las penalizaciones L1 y L2. Esto permite disfrutar de los beneficios de ambas: esparsidad en las características (L1) y control de la magnitud de los pesos (L2).
+
+Matemáticas Detrás de la Regularización en Softmax
+Función de Costo con Regularización L2
+
+La función de costo original de la regresión softmax (entropía cruzada categórica) sin regularización es:
+J(θ)=−1m∑i=1m∑k=1Kyi(k)log⁡(y^i(k))
+J(θ)=−m1​i=1∑m​k=1∑K​yi(k)​log(y^​i(k)​)
+
+Donde:
+
+    mm es el número de ejemplos de entrenamiento.
+    KK es el número de clases.
+    yi(k)yi(k)​ es el valor real (1 o 0) de la clase kk para el ejemplo ii.
+    y^i(k)y^​i(k)​ es la probabilidad predicha por el modelo para la clase kk en el ejemplo ii.
+
+Al añadir regularización L2, la función de costo se modifica a:
+J(θ)=−1m∑i=1m∑k=1Kyi(k)log⁡(y^i(k))+λ2m∑j=1n∑k=1Kθjk2
+J(θ)=−m1​i=1∑m​k=1∑K​yi(k)​log(y^​i(k)​)+2mλ​j=1∑n​k=1∑K​θjk2​
+
+Donde:
+
+    λλ es el hiperparámetro de regularización que controla la fuerza de la penalización.
+    θjkθjk​ son los pesos asociados con la característica jj y la clase kk.
+    El término λ2m∑j=1n∑k=1Kθjk22mλ​∑j=1n​∑k=1K​θjk2​ es la penalización L2.
+
+Función de Costo con Regularización L1
+
+Con regularización L1, la función de costo se convierte en:
+J(θ)=−1m∑i=1m∑k=1Kyi(k)log⁡(y^i(k))+λm∑j=1n∑k=1K∣θjk∣
+J(θ)=−m1​i=1∑m​k=1∑K​yi(k)​log(y^​i(k)​)+mλ​j=1∑n​k=1∑K​∣θjk​∣
+
+Donde:
+
+    El término λm∑j=1n∑k=1K∣θjk∣mλ​∑j=1n​∑k=1K​∣θjk​∣ es la penalización L1.
+
+Implementación en la Práctica
+
+En TensorFlow o Keras, puedes añadir regularización directamente en las capas de tu modelo. Aquí te muestro un ejemplo de cómo hacerlo en una red neuronal con regresión softmax:
